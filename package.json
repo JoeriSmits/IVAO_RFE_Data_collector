@@ -1,0 +1,60 @@
+{
+  "version": "0.0.1",
+  "name": "ivao-rfe-data-collector",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start:prod",
+    "start:dev": "nodemon",
+    "start:debug": "nodemon --config nodemon-debug.json",
+    "start:prod": "node dist/main.js",
+    "prettier": "npx prettier --write --loglevel silent 'src/**/*.ts'",
+    "watch-ts": "tsc -w",
+    "tsc": "tsc",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "watch-node": "nodemon dist/index.js",
+    "watch-debug-node": "nodemon --inspect dist/index.js",
+    "test": "npx jest --silent --passWithNoTests",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webbio/Viper_Backend_Boilerplate.git"
+  },
+  "author": "Joeri Smits <joeri@webbio.nl>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webbio/Viper_Backend_Boilerplate/issues"
+  },
+  "homepage": "https://github.com/webbio/Viper_Backend_Boilerplate#readme",
+  "dependencies": {
+    "@types/node": "^12.0.10",
+    "request": "^2.88.0",
+    "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^8.0.0",
+    "commitlint": "^8.0.0",
+    "husky": "^2.4.1",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.17.0",
+    "tslint-clean-code": "^0.2.9",
+    "tslint-config-airbnb": "^5.11.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm t && npm run prettier && npm run lint && npm run tsc",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -x @commitlint/config-conventional"
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html"
+    ]
+  }
+}
