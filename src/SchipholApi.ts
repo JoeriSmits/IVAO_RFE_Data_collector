@@ -10,28 +10,51 @@ interface httpResponse {
 export default class SchipholApi {
     private _applicationId: string;
     private _applicationKey: string;
+    private _limitAmountOfRequestEachMinute: number;
     private _userAgent: string;
     private _endpoint: string = 'https://api.schiphol.nl';
 
-    constructor(applicationId: string, applicationKey: string, userAgent: string = 'IVAO_RFE') {
+    constructor(applicationId: string, applicationKey: string, limitAmountOfRequestEachMinute: number, userAgent: string = 'IVAO_RFE') {
         this._applicationId = applicationId;
         this._applicationKey = applicationKey;
+        this._limitAmountOfRequestEachMinute = limitAmountOfRequestEachMinute;
         this._userAgent = userAgent;
     }
 
-    public retrieveFlightsForDate(): Promise<[{}]> {
+    /**
+     * Retrieving all flights for a specific date with the Schiphol API
+     * @param date Retrieve all flights for this date
+     * @param scheme The scheme (object) that will be returned for each flight
+     */
+    public retrieveFlightsForDate(date: string, scheme: {}): Promise<any> {
+        const endpoint = `/public-flights/flights?scheduleDate=${date}&includedelays=false`;
         return new Promise((resolve, reject) => {
             try {
                 this._getAllDataFromPaginatedSource(
-                    '/public-flights/flights?scheduleDate=2019-07-20&includedelays=false',
+                    endpoint,
                     (data: [{}]) => {
-                        return resolve(data);
+                        return resolve(
+                            data.map(flight => this.mapFlightToScheme(flight, scheme))
+                        );
                     }
                 );
             } catch(e) {
                 return reject(e);
             }
         });
+    }
+
+    /**
+     * Maps the flight to a specific scheme
+     * @param flight Returned object of a flight from the Schiphol API
+     * @param scheme Scheme to map the returned object to
+     */
+    private mapFlightToScheme(flight: any, scheme: any) {
+        const result: any = {};
+        Object.keys(scheme).forEach((key: any) => {
+            result[key] = flight[scheme[key]];
+        });
+        return result;
     }
 
     /**
@@ -60,6 +83,7 @@ export default class SchipholApi {
      * @param url Source url to retrieve the data
      */
     private _generateRequest(url: string): Promise<httpResponse> {
+        const msDelay = 60 / this._limitAmountOfRequestEachMinute * 1000;
         return new Promise((resolve, reject) => {
             request({
                 url: `${this._endpoint}${url}`,
@@ -72,10 +96,10 @@ export default class SchipholApi {
                 },
             }, (e: any, response: any, body: string) => {
                 if(e || response.statusCode !== 200) return reject(e);
-                return resolve({
+                return setTimeout(() => resolve({
                     headers: response.headers,
                     body: JSON.parse(body),
-                });
+                }), msDelay);
             });
         });
     }
