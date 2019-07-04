@@ -14,7 +14,12 @@ export default class SchipholApi {
     private _userAgent: string;
     private _endpoint: string = 'https://api.schiphol.nl';
 
-    constructor(applicationId: string, applicationKey: string, limitAmountOfRequestEachMinute: number, userAgent: string = 'IVAO_RFE') {
+    constructor(
+        applicationId: string,
+        applicationKey: string,
+        limitAmountOfRequestEachMinute: number,
+        userAgent: string = 'IVAO_RFE'
+    ) {
         this._applicationId = applicationId;
         this._applicationKey = applicationKey;
         this._limitAmountOfRequestEachMinute = limitAmountOfRequestEachMinute;
@@ -83,6 +88,7 @@ export default class SchipholApi {
      * @param url Source url to retrieve the data
      */
     private _generateRequest(url: string): Promise<httpResponse> {
+        // The API has a throttle on the amount of requests in each minute
         const msDelay = 60 / this._limitAmountOfRequestEachMinute * 1000;
         return new Promise((resolve, reject) => {
             request({

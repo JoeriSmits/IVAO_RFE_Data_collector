@@ -1,4 +1,4 @@
-import FlightStats from "./SchipholApi";
+import FlightStats from "./schiphol.api";
 
 const flightStats = new FlightStats(
     '20e7ff57',
