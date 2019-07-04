@@ -7,7 +7,7 @@ const flightStats = new FlightStats(
 );
 
 const execute = async () => {
-    let historicData = await flightStats.retrieveFlightsForDate('2019-07-20', {
+    let flights = await flightStats.retrieveFlightsForDate('2019-07-20', {
             flightName: 'flightName',
             direction: 'flightDirection',
             pier: 'pier',
@@ -15,16 +15,16 @@ const execute = async () => {
         }
     );
     // Remove codeshare flights
-    historicData = historicData.filter((flight: any) => flight.flightName !== flight.mainFlight);
+    flights = flights.filter((flight: any) => flight.flightName !== flight.mainFlight);
     // Change gate for cargo flights
-    historicData = historicData.map((flight: any) => {
+    flights = flights.map((flight: any) => {
         if(flight.serviceType === 'F') flight.gate = 'CARGO';
         return flight;
     });
 
 
 
-    console.log(historicData);
+    console.log(flights);
 }
 
 execute();
