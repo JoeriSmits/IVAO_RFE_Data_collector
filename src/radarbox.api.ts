@@ -31,6 +31,8 @@ export default class RadarboxApi {
             apdstna,
             mrgdeps,
             mrgarrs,
+            depgate,
+            arrgate,
         }: any = flights[0];
 
         return {
@@ -44,11 +46,13 @@ export default class RadarboxApi {
             departure: {
                 identifier: aporgic,
                 name: aporgna,
+                gate: depgate,
                 scheduledTime: mrgdeps,
             },
             arrival: {
                 identifier: apdstic,
                 name: apdstna,
+                gate: arrgate,
                 scheduledTime: mrgarrs
             }
         };
