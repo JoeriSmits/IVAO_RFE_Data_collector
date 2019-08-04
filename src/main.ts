@@ -1,5 +1,6 @@
 import FlightStats from "./schiphol.api";
 import RadarboxApi from './radarbox.api';
+import RoutePlannerApi from './routeplanner.api';
 
 const flightStats = new FlightStats(
     '20e7ff57',
@@ -26,8 +27,12 @@ const execute = async () => {
     const flights = { flightName: 'EJU7991', direction: 'D', pier: null, gate: null };
 
 
-    const radarbox = new RadarboxApi();
-    const data = await radarbox.retrieveFlightData('EJU7991');
+    // const radarbox = new RadarboxApi();
+    // const data = await radarbox.retrieveFlightData('OR789');
+    // console.log(data);
+
+    const routeFinder = new RoutePlannerApi();
+    const data = await routeFinder.getRoute('EHAM', 'LTBJ');
     console.log(data);
 }
 
