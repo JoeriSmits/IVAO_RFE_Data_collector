@@ -16,46 +16,51 @@ export default class RadarboxApi {
 
     /**
      * Maps the flights array to a more readable format
+     * If data is missing we return an empty object
      * @param flights Array of flights
      */
     private _mapFlightsArrayToFlightObject(flights: [{}]) {
-        const {
-            acr,
-            act,
-            acd,
-            th1,
-            cs,
-            aporgic,
-            aporgna,
-            apdstic,
-            apdstna,
-            mrgdeps,
-            mrgarrs,
-            depgate,
-            arrgate,
-        }: any = flights[0];
-
-        return {
-            callsign: cs,
-            aircraft: {
-                registration: acr,
-                type: act,
-                description: acd,
-                image: `https://cdn.radarbox24.com/photo/${th1}`,
-            },
-            departure: {
-                identifier: aporgic,
-                name: aporgna,
-                gate: depgate,
-                scheduledTime: mrgdeps,
-            },
-            arrival: {
-                identifier: apdstic,
-                name: apdstna,
-                gate: arrgate,
-                scheduledTime: mrgarrs
-            }
-        };
+        try {
+            const {
+                acr,
+                act,
+                acd,
+                th1,
+                cs,
+                aporgic,
+                aporgna,
+                apdstic,
+                apdstna,
+                mrgdeps,
+                mrgarrs,
+                depgate,
+                arrgate,
+            }: any = flights[0];
+    
+            return {
+                callsign: cs,
+                aircraft: {
+                    registration: acr,
+                    type: act,
+                    description: acd,
+                    image: th1 ? `https://cdn.radarbox24.com/photo/${th1}` : null,
+                },
+                departure: {
+                    identifier: aporgic,
+                    name: aporgna,
+                    gate: depgate,
+                    scheduledTime: mrgdeps,
+                },
+                arrival: {
+                    identifier: apdstic,
+                    name: apdstna,
+                    gate: arrgate,
+                    scheduledTime: mrgarrs
+                }
+            };
+        } catch (e) {
+            return {};
+        }
     }
 
     /**

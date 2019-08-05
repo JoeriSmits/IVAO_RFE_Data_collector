@@ -1,0 +1,485 @@
+[
+    {
+        "flightName": "AF8496",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E18",
+        "route": null
+    },
+    {
+        "flightName": "MU8271",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E18",
+        "route": null
+    },
+    {
+        "flightName": "HV1833",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D81",
+        "callsign": "TRA1833",
+        "aircraft": {
+            "registration": "PH-HXG",
+            "type": "B738",
+            "description": "Boeing 737-800WL",
+            "image": "https://cdn.radarbox24.com/photo/PH-HXG-1563516486-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1564898942
+        },
+        "arrival": {
+            "identifier": "LGKO",
+            "name": "Kos Airport",
+            "gate": null,
+            "scheduledTime": 1564898942
+        },
+        "route": "EDUPO UZ738 MISGO UZ741 GMH UL603 ESATI UL984 OSBIT UZ205 BARSU DCT EKSOS UZ205 LULAR Z205 ABUDO Z37 GIMBO DCT PESAT DCT INVED L606 OVDOT M748 OSTOV N127 NIKTI UN127 LMO UL618 MES UL609 LARKI"
+    },
+    {
+        "flightName": "HV5807",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D61",
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "73H",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1565158800
+        },
+        "arrival": {
+            "identifier": "LGTS",
+            "name": "Thessaloniki Macedonia International Airport",
+            "gate": null,
+            "scheduledTime": 1565172600
+        },
+        "route": "EDUPO UZ738 RIDSU UL607 BEMKI Z999 XEBIX L607 ELMEM N606 OTRES T307 DIRAB DCT LAMPO DCT AGOMO DCT BUSER DCT LISKO DCT XOLTA DCT AIOSA DCT PAPIZ DCT PINDO UM603 EDASI"
+    },
+    {
+        "flightName": "KL2563",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D61",
+        "route": null
+    },
+    {
+        "flightName": "HV6341",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D79",
+        "callsign": "TRA6341",
+        "aircraft": {
+            "registration": "PH-HSB",
+            "type": "B738",
+            "description": "Boeing 737-8K2",
+            "image": "https://cdn.radarbox24.com/photo/PH-HSB-1563839321-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": "D79",
+            "scheduledTime": 1564895100
+        },
+        "arrival": {
+            "identifier": "LEIB",
+            "name": "Ibiza Airport",
+            "gate": null,
+            "scheduledTime": 1564904400
+        },
+        "route": "WOODY UN872 LESDO UM728 RESMI UN857 DIRMO UN855 PPG UP84 NENDA UN975 BCN UZ174 CORDA"
+    },
+    {
+        "flightName": "KL2537",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D79",
+        "route": null
+    },
+    {
+        "flightName": "HV163",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D23",
+        "callsign": "TRA163",
+        "aircraft": {
+            "registration": "PH-HSM",
+            "type": "B738",
+            "description": "Boeing 737-8K2",
+            "image": "https://cdn.radarbox24.com/photo/PH-HSM-1563761451-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1564900167
+        },
+        "arrival": {
+            "identifier": "LTAI",
+            "name": "Antalya International Airport",
+            "gate": null,
+            "scheduledTime": 1564900167
+        },
+        "route": "EDUPO UZ738 MISGO UZ741 GMH UL603 ESATI UL984 OSBIT UZ205 BARSU DCT EKSOS UZ205 LULAR Z205 ABUDO Z37 GIMBO DCT PESAT DCT INVED L606 ADORU UG80 ATVEP UL606 ULMAR UN739 EKI UT40 CRD UL854 SALDA UN131 KOZLU"
+    },
+    {
+        "flightName": "HV5471",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D86",
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "73W",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": "D79",
+            "scheduledTime": 1565070600
+        },
+        "arrival": {
+            "identifier": "LEMH",
+            "name": "Menorca Airport",
+            "gate": null,
+            "scheduledTime": 1565079000
+        },
+        "route": "WOODY UN872 LESDO UM728 RESMI UN857 DIRMO UN855 BGR UL16 SARGO"
+    },
+    {
+        "flightName": "KL0856",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E20",
+        "route": null
+    },
+    {
+        "flightName": "AF8421",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E20",
+        "route": null
+    },
+    {
+        "flightName": "KE5925",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E20",
+        "route": null
+    },
+    {
+        "flightName": "HV1264",
+        "direction": "A",
+        "pier": null,
+        "gate": null,
+        "route": null
+    },
+    {
+        "flightName": "HV1411",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D82",
+        "callsign": "TRA1411",
+        "aircraft": {
+            "registration": "PH-HSJ",
+            "type": "B738",
+            "description": "Boeing 737-8K2",
+            "image": "https://cdn.radarbox24.com/photo/PH-HSJ-1563501825-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1564901015
+        },
+        "arrival": {
+            "identifier": "LGIR",
+            "name": "Heraklion International Nikos Kazantzakis Airport",
+            "gate": null,
+            "scheduledTime": 1564901015
+        },
+        "route": "EDUPO UZ738 RIDSU UL607 BEMKI Z999 XEBIX L607 ELMEM N606 OTRES T307 DIRAB DCT LAMPO DCT AGOMO DCT BUSER DCT LISKO DCT RIVAM DCT PERAV DCT BRD DCT NOSTO UL612 TRL UJ65 BAVES"
+    },
+    {
+        "flightName": "CZ455",
+        "direction": "A",
+        "pier": null,
+        "gate": null,
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "77F",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "ZUCK",
+            "name": "Chongqing Jiangbei International Airport",
+            "gate": null,
+            "scheduledTime": 1565154300
+        },
+        "arrival": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1565164200
+        },
+        "route": "SOSLI W550 GAO W26 JTG B330 XIXAN W565 DNC W622 BUKPU W197 ANDIM B215 IBANO G470 IPMUN W192 FKG A368 KRG A95 ATBAN G111 TITUR N985 RITOP L158 CW T638 MF MF7T AR FE4T BELAG A494 OPOKA M869 LEP M864 KOLJA M611 CDA Z701 GOBOT UZ701 EEL"
+    },
+    {
+        "flightName": "KL4798",
+        "direction": "A",
+        "pier": null,
+        "gate": null,
+        "route": null
+    },
+    {
+        "flightName": "HV6223",
+        "direction": "D",
+        "pier": "C",
+        "gate": "C15",
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "73H",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1565203500
+        },
+        "arrival": {
+            "identifier": "LEMG",
+            "name": "Málaga Airport",
+            "gate": null,
+            "scheduledTime": 1565214300
+        },
+        "route": "WOODY UN872 LESDO UM728 RESMI UN857 DIRMO UZ365 GUERE UN860 VLC UM985 VIBAS"
+    },
+    {
+        "flightName": "KL2653",
+        "direction": "D",
+        "pier": "C",
+        "gate": "C15",
+        "route": null
+    },
+    {
+        "flightName": "CND711",
+        "direction": "D",
+        "pier": "C",
+        "gate": "C10",
+        "route": null
+    },
+    {
+        "flightName": "HV5887",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D71",
+        "callsign": "TRA44H",
+        "aircraft": {
+            "registration": "PH-HXC",
+            "type": "B738",
+            "description": "Boeing 737-8K2",
+            "image": "https://cdn.radarbox24.com/photo/PH-HXC-1563867695-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": "C9",
+            "scheduledTime": 1564983000
+        },
+        "arrival": {
+            "identifier": "LGSA",
+            "name": "Chania International Airport",
+            "gate": null,
+            "scheduledTime": 1564999200
+        },
+        "route": "EDUPO UZ738 RIDSU UL607 BEMKI Z999 XEBIX L607 ELMEM N606 OTRES T307 DIRAB DCT LAMPO DCT AGOMO DCT BUSER DCT LISKO DCT RIVAM DCT PERAV DCT BRD DCT NOSTO UL612 TRL UJ65 SOKRI"
+    },
+    {
+        "flightName": "OR197",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D68",
+        "callsign": "TFL197",
+        "aircraft": {
+            "registration": "C-FTDW",
+            "type": "B738",
+            "description": "Boeing 737-808",
+            "image": "https://cdn.radarbox24.com/photo/C-FTDW-1563532220-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": "D68",
+            "scheduledTime": 1564896900
+        },
+        "arrival": {
+            "identifier": "LGKP",
+            "name": "Karpathos Airport",
+            "gate": null,
+            "scheduledTime": 1564913700
+        },
+        "route": "EDUPO UZ738 RIDSU UL607 BEMKI Z999 XEBIX L607 ELMEM N606 OTRES T307 DIRAB DCT LAMPO DCT AGOMO DCT BUSER DCT LISKO DCT XOLTA DCT AIOSA DCT PAPIZ DCT PINDO UL607 ATV UL995 KEA UN132 NIBOX DCT"
+    },
+    {
+        "flightName": "KL0428",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E3",
+        "route": null
+    },
+    {
+        "flightName": "AF8422",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E3",
+        "route": null
+    },
+    {
+        "flightName": "DL9385",
+        "direction": "A",
+        "pier": "E",
+        "gate": "E3",
+        "route": null
+    },
+    {
+        "flightName": "OR783",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D4",
+        "callsign": "TFL783",
+        "aircraft": {
+            "registration": "PH-OYI",
+            "type": "B763",
+            "description": "Boeing 767-304ER",
+            "image": "https://cdn.radarbox24.com/photo/PH-OYI-1563631293-1.jpg"
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": "D4",
+            "scheduledTime": 1564897200
+        },
+        "arrival": {
+            "identifier": "LTAI",
+            "name": "Antalya International Airport",
+            "gate": null,
+            "scheduledTime": 1564914000
+        },
+        "route": "EDUPO UZ738 MISGO UZ741 GMH UL603 ESATI UL984 OSBIT UZ205 BARSU DCT EKSOS UZ205 LULAR Z205 ABUDO Z37 GIMBO DCT PESAT DCT INVED L606 ADORU UG80 ATVEP UL606 ULMAR UN739 EKI UT40 CRD UL854 SALDA UN131 KOZLU"
+    },
+    {
+        "flightName": "HV5629",
+        "direction": "D",
+        "pier": "C",
+        "gate": "C16",
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "73H",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1565160900
+        },
+        "arrival": {
+            "identifier": "LEPA",
+            "name": "Palma De Mallorca Airport",
+            "gate": null,
+            "scheduledTime": 1565169600
+        },
+        "route": "WOODY UN872 LESDO UM728 RESMI UN857 DIRMO UZ365 NARAK UN859 LOMRA UN727 ROCAN UN13 LORES"
+    },
+    {
+        "flightName": "KL2673",
+        "direction": "D",
+        "pier": "C",
+        "gate": "C16",
+        "route": null
+    },
+    {
+        "flightName": "HV5791",
+        "direction": "D",
+        "pier": "D",
+        "gate": "D74",
+        "callsign": null,
+        "aircraft": {
+            "registration": null,
+            "type": "73H",
+            "description": null,
+            "image": null
+        },
+        "departure": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1565158800
+        },
+        "arrival": {
+            "identifier": "LGPZ",
+            "name": "Aktion National Airport",
+            "gate": null,
+            "scheduledTime": 1565172900
+        },
+        "route": "EDUPO UZ738 RIDSU UL607 BEMKI Z999 XEBIX L607 ELMEM N606 OTRES T307 DIRAB DCT LAMPO DCT AGOMO DCT BUSER DCT LISKO DCT RIVAM DCT GARGA DCT ENOXA DCT TIGRA UL995 KRK UA14 MALED"
+    },
+    {
+        "flightName": "KL0588",
+        "direction": "A",
+        "pier": "F",
+        "gate": "F6",
+        "route": null
+    },
+    {
+        "flightName": "DL9477",
+        "direction": "A",
+        "pier": "F",
+        "gate": "F6",
+        "route": null
+    },
+    {
+        "flightName": "HV156",
+        "direction": "A",
+        "pier": "A",
+        "gate": "A15",
+        "callsign": "TRA156",
+        "aircraft": {
+            "registration": "PH-HXC",
+            "type": "B738",
+            "description": "Boeing 737-8K2",
+            "image": "https://cdn.radarbox24.com/photo/PH-HXC-1563867695-1.jpg"
+        },
+        "departure": {
+            "identifier": "LTAI",
+            "name": "Antalya International Airport",
+            "gate": null,
+            "scheduledTime": 1564892374
+        },
+        "arrival": {
+            "identifier": "EHAM",
+            "name": "Amsterdam Airport Schiphol",
+            "gate": null,
+            "scheduledTime": 1564892374
+        },
+        "route": "EKSEN UL610 FENER UT264 TUDBU Q26 ETUBA T226 MOPUG DCT BEGLA DCT DITIS M174 OKG DCT ROBEL UL602 RKN"
+    }
+]
