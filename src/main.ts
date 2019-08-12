@@ -1,6 +1,7 @@
 import SchipholApi from "./schiphol.api";
 import RadarboxApi from './radarbox.api';
 import RoutePlannerApi from './routeplanner.api';
+const aircraftTypes = require('../assets/aircraftTypes.json');
 
 const _cliProgress = require('cli-progress');
 const fs = require('fs');
@@ -15,53 +16,21 @@ const schipholApi = new SchipholApi(
 
 const execute = async () => {
     console.info('Retrieving flights from the Schiphol API')
-    // // Retrieve all the flights for a specific date
-    // let flights = await schipholApi.retrieveFlightsForDate('2019-08-04', {
-    //         flightName: 'flightName',
-    //         direction: 'flightDirection',
-    //         pier: 'pier',
-    //         gate: 'gate',
-    //     }
-    // );
-    // // Remove codeshare flights
-    // flights = flights.filter((flight: any) => flight.flightName !== flight.mainFlight);
-    // // Change gate for cargo flights
-    // flights = flights.map((flight: any) => {
-    //     if(flight.serviceType === 'F') flight.gate = 'CARGO';
-    //     return flight;
-    // });
-
-    let flights = [{ flightName: 'AF8496', direction: 'A', pier: 'E', gate: 'E18' },
-    { flightName: 'MU8271', direction: 'A', pier: 'E', gate: 'E18' },
-    { flightName: 'HV1833', direction: 'D', pier: 'D', gate: 'D81' },
-    { flightName: 'HV5807', direction: 'D', pier: 'D', gate: 'D61' },
-    { flightName: 'KL2563', direction: 'D', pier: 'D', gate: 'D61' },
-    { flightName: 'HV6341', direction: 'D', pier: 'D', gate: 'D79' },
-    { flightName: 'KL2537', direction: 'D', pier: 'D', gate: 'D79' },
-    { flightName: 'HV163', direction: 'D', pier: 'D', gate: 'D23' },
-    { flightName: 'HV5471', direction: 'D', pier: 'D', gate: 'D86' },
-    { flightName: 'KL0856', direction: 'A', pier: 'E', gate: 'E20' },
-    { flightName: 'AF8421', direction: 'A', pier: 'E', gate: 'E20' },
-    { flightName: 'KE5925', direction: 'A', pier: 'E', gate: 'E20' },
-    { flightName: 'HV1264', direction: 'A', pier: null, gate: null },
-    { flightName: 'HV1411', direction: 'D', pier: 'D', gate: 'D82' },
-    { flightName: 'CZ455', direction: 'A', pier: null, gate: null },
-    { flightName: 'KL4798', direction: 'A', pier: null, gate: null },
-    { flightName: 'HV6223', direction: 'D', pier: 'C', gate: 'C15' },
-    { flightName: 'KL2653', direction: 'D', pier: 'C', gate: 'C15' },
-    { flightName: 'CND711', direction: 'D', pier: 'C', gate: 'C10' },
-    { flightName: 'HV5887', direction: 'D', pier: 'D', gate: 'D71' },
-    { flightName: 'OR197', direction: 'D', pier: 'D', gate: 'D68' },
-    { flightName: 'KL0428', direction: 'A', pier: 'E', gate: 'E3' },
-    { flightName: 'AF8422', direction: 'A', pier: 'E', gate: 'E3' },
-    { flightName: 'DL9385', direction: 'A', pier: 'E', gate: 'E3' },
-    { flightName: 'OR783', direction: 'D', pier: 'D', gate: 'D4' },
-    { flightName: 'HV5629', direction: 'D', pier: 'C', gate: 'C16' },
-    { flightName: 'KL2673', direction: 'D', pier: 'C', gate: 'C16' },
-    { flightName: 'HV5791', direction: 'D', pier: 'D', gate: 'D74' },
-    { flightName: 'KL0588', direction: 'A', pier: 'F', gate: 'F6' },
-    { flightName: 'DL9477', direction: 'A', pier: 'F', gate: 'F6' },
-    { flightName: 'HV156', direction: 'A', pier: 'A', gate: 'A15' }]
+    // Retrieve all the flights for a specific date
+    let flights = await schipholApi.retrieveFlightsForDate('2019-08-11', {
+            flightName: 'flightName',
+            direction: 'flightDirection',
+            pier: 'pier',
+            gate: 'gate',
+        }
+    );
+    // Remove codeshare flights
+    flights = flights.filter((flight: any) => flight.flightName !== flight.mainFlight);
+    // Change gate for cargo flights
+    flights = flights.map((flight: any) => {
+        if(flight.serviceType === 'F') flight.gate = 'CARGO';
+        return flight;
+    });
 
     progressBar.start(flights.length);
     populateFlightsWithAdditionalData(flights, (result: any) => {
@@ -85,17 +54,44 @@ const populateFlightsWithAdditionalData = async (flights: any[], callback: (resu
     const flight: any = flights[index];
     const radarbox = await retrieveAdditionalDataFromFlightBox24(flight);
     const route = await retrieveFlightplanRouteFromRoutePlanner({...flight, ...radarbox});
+    const flightWithCorrectAircraftType = convertICAOAircraftToIATA({...flight, ...radarbox});
+
     progressBar.increment();
 
-    flights[index] = {...flight, ...radarbox, ...{route: route}};
+    flights[index] = {...flightWithCorrectAircraftType, ...radarbox, ...{route: route}};
     populateFlightsWithAdditionalData(flights, callback, index + 1);
 }
 
+/**
+ * We need an IATA code for the aircraft type so we look it up in the ICAO/IATA mapping config
+ * @param flight Flight object
+ */
+const convertICAOAircraftToIATA = (flight: any) => {
+    const result = {...flight};
+    if(!result.aircraft) return result;
+    
+    const [aircraft] = aircraftTypes.filter((type: any) => {
+        const aircraftType = result.aircraft.type || '';
+        return type.icaoCode === aircraftType || type.iataCode === aircraftType;
+    });
+    result.aircraft.type = aircraft ? aircraft.iataCode : result.aircraft.type;
+    return result;
+}
+
+/**
+ * Get additional data from radarbox24 to populate the flight object
+ * @param flight Flight object
+ */
 const retrieveAdditionalDataFromFlightBox24 = (flight: any): Promise<{} | null> => {
     const radarbox = new RadarboxApi();
     return radarbox.retrieveFlightData(flight.flightName);
 }
 
+/**
+ * We generate a route with routeplanner for the departe and destination retrieved from
+ * radarbox24
+ * @param flight Flight object + radarbox24 data
+ */
 const retrieveFlightplanRouteFromRoutePlanner = async (flight: any): Promise<string | null> => {
     const routeFinder = new RoutePlannerApi();
     let route = null;
