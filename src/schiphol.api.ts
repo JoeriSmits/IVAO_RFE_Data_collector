@@ -39,7 +39,7 @@ export default class SchipholApi {
                     endpoint,
                     (data: [{}]) => {
                         return resolve(
-                            data.map(flight => this.mapFlightToScheme(flight, scheme))
+                            data.map(flight => this._mapFlightToScheme(flight, scheme))
                         );
                     }
                 );
@@ -54,7 +54,7 @@ export default class SchipholApi {
      * @param flight Returned object of a flight from the Schiphol API
      * @param scheme Scheme to map the returned object to
      */
-    private mapFlightToScheme(flight: any, scheme: any): {} {
+    private _mapFlightToScheme(flight: any, scheme: any): {} {
         const result: any = {};
         Object.keys(scheme).forEach((key: any) => {
             result[key] = flight[scheme[key]];

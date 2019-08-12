@@ -29,10 +29,10 @@ export default class RoutePlannerApi {
         this._arrival = arrival;
 
         const response = await this._generateRequest().catch(() => 'rejected');
-        return this.parseRoute(response);
+        return this._parseRoute(response);
     }
 
-    private parseRoute(htmlBody: string) {
+    private _parseRoute(htmlBody: string) {
         const match = new RegExp(/<tt><b>(.*)<\/b><\/tt>/gs).exec(htmlBody);
         if(!match) return null;
         const route = match[1];
