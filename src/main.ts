@@ -1,4 +1,4 @@
-import SchipholApi from "./schiphol.api";
+import SchipholApi from './schiphol.api';
 import RadarboxApi from './radarbox.api';
 import RoutePlannerApi from './routeplanner.api';
 const aircraftTypes = require('../assets/aircraftTypes.json');
@@ -6,7 +6,10 @@ const aircraftTypes = require('../assets/aircraftTypes.json');
 const _cliProgress = require('cli-progress');
 const fs = require('fs');
 
-const progressBar = new _cliProgress.Bar({}, _cliProgress.Presets.shades_classic);
+const progressBar = new _cliProgress.Bar(
+    {},
+    _cliProgress.Presets.shades_classic,
+);
 
 const schipholApi = new SchipholApi(
     '20e7ff57',
@@ -15,20 +18,21 @@ const schipholApi = new SchipholApi(
 );
 
 const execute = async () => {
-    console.info('Retrieving flights from the Schiphol API')
+    console.info('Retrieving flights from the Schiphol API');
     // Retrieve all the flights for a specific date
     let flights = await schipholApi.retrieveFlightsForDate('2019-08-11', {
-            flightName: 'flightName',
-            direction: 'flightDirection',
-            pier: 'pier',
-            gate: 'gate',
-        }
-    );
+        flightName: 'flightName',
+        direction: 'flightDirection',
+        pier: 'pier',
+        gate: 'gate',
+    });
     // Remove codeshare flights
-    flights = flights.filter((flight: any) => flight.flightName !== flight.mainFlight);
+    flights = flights.filter(
+        (flight: any) => flight.flightName !== flight.mainFlight,
+    );
     // Change gate for cargo flights
     flights = flights.map((flight: any) => {
-        if(flight.serviceType === 'F') flight.gate = 'CARGO';
+        if (flight.serviceType === 'F') flight.gate = 'CARGO';
         return flight;
     });
 
@@ -39,7 +43,7 @@ const execute = async () => {
             console.log('File written');
         });
     });
-}
+};
 
 /**
  * Recursivly populates every item in the flight array with additional data
@@ -48,19 +52,37 @@ const execute = async () => {
  * @param callback Callback which will be called when array has been populated
  * @param index Simple counter to keep track of the array index
  */
-const populateFlightsWithAdditionalData = async (flights: any[], callback: (result: any) => any, index: number = 0) => {
-    if(!flights[index]) { return callback(flights); }
+const populateFlightsWithAdditionalData = async (
+    flights: any[],
+    callback: (result: any) => any,
+    index: number = 0,
+) => {
+    if (!flights[index]) {
+        return callback(flights);
+    }
 
     const flight: any = flights[index];
-    const radarbox = await retrieveAdditionalDataFromFlightBox24(flight).catch(console.error);
-    const route = await retrieveFlightplanRouteFromRoutePlanner({...flight, ...radarbox}).catch(console.error);
-    const flightWithCorrectAircraftType = convertICAOAircraftToIATA({...flight, ...radarbox});
+    const radarbox = await retrieveAdditionalDataFromFlightBox24(flight).catch(
+        console.error,
+    );
+    const route = await retrieveFlightplanRouteFromRoutePlanner({
+        ...flight,
+        ...radarbox,
+    }).catch(console.error);
+    const flightWithCorrectAircraftType = convertICAOAircraftToIATA({
+        ...flight,
+        ...radarbox,
+    });
 
     progressBar.increment();
 
-    flights[index] = {...flightWithCorrectAircraftType, ...radarbox, ...{route: route}};
+    flights[index] = {
+        ...flightWithCorrectAircraftType,
+        ...radarbox,
+        ...{ route: route },
+    };
     populateFlightsWithAdditionalData(flights, callback, index + 1);
-}
+};
 
 /**
  * We need an IATA code for the aircraft type so we look it up in the ICAO/IATA mapping config
@@ -76,13 +98,15 @@ const convertICAOAircraftToIATA = (flight: any) => {
     });
     result.aircraft.type = aircraft ? aircraft.iataCode : result.aircraft.type;
     return result;
-}
+};
 
 /**
  * Get additional data from radarbox24 to populate the flight object
  * @param flight Flight object
  */
-const retrieveAdditionalDataFromFlightBox24 = (flight: any): Promise<{} | null> => {
+const retrieveAdditionalDataFromFlightBox24 = (
+    flight: any,
+): Promise<{} | null> => {
     const radarbox = new RadarboxApi();
     return radarbox.retrieveFlightData(flight.flightName);
 };
@@ -92,11 +116,15 @@ const retrieveAdditionalDataFromFlightBox24 = (flight: any): Promise<{} | null> 
  * radarbox24
  * @param flight Flight object + radarbox24 data
  */
-const retrieveFlightplanRouteFromRoutePlanner = async (flight: any): Promise<string | null> => {
+const retrieveFlightplanRouteFromRoutePlanner = async (
+    flight: any,
+): Promise<string | null> => {
     const routeFinder = new RoutePlannerApi();
     let route = null;
-    if(flight.departure && flight.arrival) {
-        return await routeFinder.getRoute(flight.departure.identifier, flight.arrival.identifier).catch(console.error);
+    if (flight.departure && flight.arrival) {
+        return await routeFinder
+            .getRoute(flight.departure.identifier, flight.arrival.identifier)
+            .catch(console.error);
     }
     return route;
 };

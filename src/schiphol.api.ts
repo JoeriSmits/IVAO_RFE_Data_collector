@@ -2,7 +2,7 @@ const request = require('request');
 
 interface httpResponse {
     headers: {
-        link: string
+        link: string;
     };
     body: any;
 }
@@ -18,7 +18,7 @@ export default class SchipholApi {
         applicationId: string,
         applicationKey: string,
         limitAmountOfRequestEachMinute: number,
-        userAgent: string = 'IVAO_RFE'
+        userAgent: string = 'IVAO_RFE',
     ) {
         this._applicationId = applicationId;
         this._applicationKey = applicationKey;
@@ -35,15 +35,14 @@ export default class SchipholApi {
         const endpoint = `/public-flights/flights?scheduleDate=${date}&includedelays=false`;
         return new Promise((resolve, reject) => {
             try {
-                this._getAllDataFromPaginatedSource(
-                    endpoint,
-                    (data: [{}]) => {
-                        return resolve(
-                            data.map(flight => this._mapFlightToScheme(flight, scheme))
-                        );
-                    }
-                );
-            } catch(e) {
+                this._getAllDataFromPaginatedSource(endpoint, (data: [{}]) => {
+                    return resolve(
+                        data.map(flight =>
+                            this._mapFlightToScheme(flight, scheme),
+                        ),
+                    );
+                });
+            } catch (e) {
                 return reject(e);
             }
         });
@@ -71,16 +70,21 @@ export default class SchipholApi {
      * @param data Data array
      * @param page Current page number
      */
-    private async _getAllDataFromPaginatedSource(url: string, callback: (data: any) => void, data: any = [], page = 0): Promise<void> {
+    private async _getAllDataFromPaginatedSource(
+        url: string,
+        callback: (data: any) => void,
+        data: any = [],
+        page = 0,
+    ): Promise<void> {
         const response = await this._generateRequest(`${url}&page=${page}`);
-        if(response.headers.link.includes('next') === false) {
+        if (response.headers.link.includes('next') === false) {
             return callback(data);
         }
         this._getAllDataFromPaginatedSource(
-            url, 
-            callback, 
+            url,
+            callback,
             [...data, ...response.body[Object.keys(response.body)[0]]], // First propery of object
-            page + 1
+            page + 1,
         );
     }
     /**
@@ -89,24 +93,31 @@ export default class SchipholApi {
      */
     private _generateRequest(url: string): Promise<httpResponse> {
         // The API has a throttle on the amount of requests in each minute
-        const msDelay = 60 / this._limitAmountOfRequestEachMinute * 1000;
+        const msDelay = (60 / this._limitAmountOfRequestEachMinute) * 1000;
         return new Promise((resolve, reject) => {
-            request({
-                url: `${this._endpoint}${url}`,
-                headers: {
-                    'User-Agent': this._userAgent,
-                    'Accept': 'application/json',
-                    'app_id': this._applicationId,
-                    'app_key': this._applicationKey,
-                    'ResourceVersion': 'v4'
+            request(
+                {
+                    url: `${this._endpoint}${url}`,
+                    headers: {
+                        'User-Agent': this._userAgent,
+                        Accept: 'application/json',
+                        app_id: this._applicationId,
+                        app_key: this._applicationKey,
+                        ResourceVersion: 'v4',
+                    },
                 },
-            }, (e: any, response: any, body: string) => {
-                if(e || response.statusCode !== 200) return reject(e);
-                return setTimeout(() => resolve({
-                    headers: response.headers,
-                    body: JSON.parse(body),
-                }), msDelay);
-            });
+                (e: any, response: any, body: string) => {
+                    if (e || response.statusCode !== 200) return reject(e);
+                    return setTimeout(
+                        () =>
+                            resolve({
+                                headers: response.headers,
+                                body: JSON.parse(body),
+                            }),
+                        msDelay,
+                    );
+                },
+            );
         });
     }
 }
