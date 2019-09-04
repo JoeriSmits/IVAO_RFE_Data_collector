@@ -21,6 +21,13 @@ export default class RadarboxApi {
      */
     private _mapFlightsArrayToFlightObject(flights: [{}]) {
         try {
+            const flight: any = {};
+            Object.keys(flights[0]).forEach((key: any) => {
+                const flightsWithValueForKey: any = flights.filter((flight: any) => flight[key]);
+                if (flightsWithValueForKey.length === 0) return flight[key] = null;
+                return flight[key] = flightsWithValueForKey[0][key];
+            });
+
             const {
                 acr,
                 act,
@@ -35,8 +42,8 @@ export default class RadarboxApi {
                 mrgarrs,
                 depgate,
                 arrgate,
-            }: any = flights[0];
-    
+            }: any = flight;
+
             return {
                 callsign: cs,
                 aircraft: {
@@ -55,7 +62,7 @@ export default class RadarboxApi {
                     identifier: apdstic,
                     name: apdstna,
                     gate: arrgate,
-                    scheduledTime: mrgarrs
+                    scheduledTime: mrgarrs,
                 }
             };
         } catch (e) {

@@ -52,8 +52,8 @@ const populateFlightsWithAdditionalData = async (flights: any[], callback: (resu
     if(!flights[index]) { return callback(flights); }
 
     const flight: any = flights[index];
-    const radarbox = await retrieveAdditionalDataFromFlightBox24(flight);
-    const route = await retrieveFlightplanRouteFromRoutePlanner({...flight, ...radarbox});
+    const radarbox = await retrieveAdditionalDataFromFlightBox24(flight).catch(console.error);
+    const route = await retrieveFlightplanRouteFromRoutePlanner({...flight, ...radarbox}).catch(console.error);
     const flightWithCorrectAircraftType = convertICAOAircraftToIATA({...flight, ...radarbox});
 
     progressBar.increment();
@@ -67,9 +67,9 @@ const populateFlightsWithAdditionalData = async (flights: any[], callback: (resu
  * @param flight Flight object
  */
 const convertICAOAircraftToIATA = (flight: any) => {
-    const result = {...flight};
-    if(!result.aircraft) return result;
-    
+    const result = { ...flight };
+    if (!result.aircraft) return result;
+
     const [aircraft] = aircraftTypes.filter((type: any) => {
         const aircraftType = result.aircraft.type || '';
         return type.icaoCode === aircraftType || type.iataCode === aircraftType;
@@ -85,7 +85,7 @@ const convertICAOAircraftToIATA = (flight: any) => {
 const retrieveAdditionalDataFromFlightBox24 = (flight: any): Promise<{} | null> => {
     const radarbox = new RadarboxApi();
     return radarbox.retrieveFlightData(flight.flightName);
-}
+};
 
 /**
  * We generate a route with routeplanner for the departe and destination retrieved from
@@ -96,9 +96,9 @@ const retrieveFlightplanRouteFromRoutePlanner = async (flight: any): Promise<str
     const routeFinder = new RoutePlannerApi();
     let route = null;
     if(flight.departure && flight.arrival) {
-        return await routeFinder.getRoute(flight.departure.identifier, flight.arrival.identifier);
+        return await routeFinder.getRoute(flight.departure.identifier, flight.arrival.identifier).catch(console.error);
     }
     return route;
-}
+};
 
 execute();
